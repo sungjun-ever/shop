@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Bus\CommandBus;
 use App\Bus\QueryBus;
+use App\Commands\Product\CreateProductCommand;
 use App\DTO\Product\CreateProductDTO;
+use App\Http\Requests\Product\StoreProductRequest;
 use App\Queries\Product\GetProductByIdQuery;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -23,27 +26,20 @@ class ProductController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request): JsonResponse
     {
-        $product = new CreateProductDTO(
-            name: $request->name,
-            slug: $request->slug,
-            shortDescription: $request->shortDescription,
-            fullDescription: $request->fullDescription,
-            sellerId: $request->sellerId,
-            brandId: $request->brandId,
-            status: $request->status,
-            details: $request->details,
-            price: $request->price,
-            categories: $request->categories,
-            optionGroups: $request->optionGroups,
-            images: $request->images,
-            tags: $request->tags
-        );
+        $command = $request->toCreateProductCommand();
+        $productId = $this->commandBus->dispatch($command);
+
+        return response()->json([
+            'success' => true,
+            'data' => $productId,
+            'message' => '제품이 등록됐습니다.'
+        ]);
 
     }
 
-    public function show(int $id)
+    public function show(int $id): JsonResponse
     {
         $query = new GetProductByIdQuery($id);
         $product = $this->queryBus->dispatch($query);
@@ -55,17 +51,17 @@ class ProductController extends Controller
         ]);
     }
 
-    public function update()
+    public function update(): JsonResponse
     {
 
     }
 
-    public function destroy()
+    public function destroy(): JsonResponse
     {
 
     }
 
-    public function productReviews()
+    public function productReviews(): JsonResponse
     {
 
     }

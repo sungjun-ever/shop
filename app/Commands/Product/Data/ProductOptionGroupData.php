@@ -8,7 +8,7 @@ readonly class ProductOptionGroupData
     public function __construct(
         public string $name,
         public ?int $displayOrder = 0,
-        public ?ProductOptionData $options,
+        public ProductOptionData|array $options,
     )
     {
     }

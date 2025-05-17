@@ -3,36 +3,32 @@
 namespace App\Commands\Product;
 
 use App\Commands\CommandInterface;
+use App\Commands\Product\Data\ProductCategoryData;
+use App\Commands\Product\Data\ProductDetailData;
+use App\Commands\Product\Data\ProductImageData;
+use App\Commands\Product\Data\ProductOptionGroupData;
+use App\Commands\Product\Data\ProductPriceData;
 use App\Enum\ProductStatus;
 
 class CreateProductCommand implements CommandInterface
 {
-    public string $name;
-    public string $slug;
-    public string $shortDescription;
-    public string $fullDescription;
-    public int $sellerId;
-    public int $brandId;
-    public ProductStatus $status;
-
-    /**
-     * @param string $name
-     * @param string $slug
-     * @param string $shortDescription
-     * @param string $fullDescription
-     * @param int $sellerId
-     * @param int $brandId
-     * @param ProductStatus $status
-     */
-    public function __construct(string $name, string $slug, string $shortDescription, string $fullDescription, int $sellerId, int $brandId, ProductStatus $status)
+    public function __construct(
+        public string                       $name,
+        public string                       $slug,
+        public string                       $shortDescription,
+        public string                       $fullDescription,
+        public int                          $sellerId,
+        public int                          $brandId,
+        public ProductStatus                $status,
+        public ?ProductDetailData           $details,
+        public ?ProductPriceData            $price,
+        public ProductCategoryData|array    $categories,
+        public ProductOptionGroupData|array $optionGroups,
+        public ProductImageData|array       $images,
+        public array                        $tags,
+    )
     {
-        $this->name = $name;
-        $this->slug = $slug;
-        $this->shortDescription = $shortDescription;
-        $this->fullDescription = $fullDescription;
-        $this->sellerId = $sellerId;
-        $this->brandId = $brandId;
-        $this->status = $status;
+
     }
 
 

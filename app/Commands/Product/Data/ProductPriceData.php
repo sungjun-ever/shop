@@ -6,7 +6,6 @@ readonly class ProductPriceData
 {
 
     public function __construct(
-        public ?int $productId,
         public float $basePrice,
         public ?float $salePrice,
         public ?float $costPrice,
