@@ -1,12 +1,11 @@
 <?php
 
-namespace App\DTO\ProductOption;
+namespace App\Commands\Product\Data;
 
-readonly class CreateProductOptionDTO
+readonly class ProductOptionData
 {
 
     public function __construct(
-        public ?int $optionGroupId,
         public string $name,
         public ?float $additionalPrice = 0,
         public ?string $sku,

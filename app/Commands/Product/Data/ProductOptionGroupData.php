@@ -1,14 +1,14 @@
 <?php
 
-namespace App\DTO\ProductOptionGroup;
+namespace App\Commands\Product\Data;
 
-readonly class CreateProductOptionGroupDTO
+readonly class ProductOptionGroupData
 {
 
     public function __construct(
-        public ?int $productId,
         public string $name,
         public ?int $displayOrder = 0,
+        public ?ProductOptionData $options,
     )
     {
     }

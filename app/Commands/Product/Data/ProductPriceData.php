@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DTO\ProductPrice;
+namespace App\Commands\Product\Data;
 
-readonly class CreateProductPriceDTO
+readonly class ProductPriceData
 {
 
     public function __construct(

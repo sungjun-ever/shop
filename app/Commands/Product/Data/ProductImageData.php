@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DTO\ProductImage;
+namespace App\Commands\Product\Data;
 
-class CreateProductImageDTO
+class ProductImageData
 {
 
     public function __construct(

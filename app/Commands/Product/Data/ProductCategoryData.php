@@ -1,8 +1,8 @@
 <?php
 
-namespace App\DTO\ProductCategory;
+namespace App\Commands\Product\Data;
 
-readonly class CreateProductCategoryDTO
+readonly class ProductCategoryData
 {
     public function __construct(
         public ?int  $productId,

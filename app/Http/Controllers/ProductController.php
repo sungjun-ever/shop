@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Bus\CommandBus;
 use App\Bus\QueryBus;
+use App\DTO\Product\CreateProductDTO;
 use App\Queries\Product\GetProductByIdQuery;
 use Illuminate\Http\Request;
 
@@ -22,8 +23,23 @@ class ProductController extends Controller
 
     }
 
-    public function store()
+    public function store(Request $request)
     {
+        $product = new CreateProductDTO(
+            name: $request->name,
+            slug: $request->slug,
+            shortDescription: $request->shortDescription,
+            fullDescription: $request->fullDescription,
+            sellerId: $request->sellerId,
+            brandId: $request->brandId,
+            status: $request->status,
+            details: $request->details,
+            price: $request->price,
+            categories: $request->categories,
+            optionGroups: $request->optionGroups,
+            images: $request->images,
+            tags: $request->tags
+        );
 
     }
 

@@ -1,19 +1,18 @@
 <?php
 
-namespace App\DTO\ProductDetail;
+namespace App\Commands\Product\Data;
 
-readonly class CreateProductDetailDTO
+readonly class ProductDetailData
 {
 
     public function __construct(
-        public ?int    $productId,
         public ?float  $weight,
-        public ?string $dimensions,
+        public ?ProductDetailDimensionData $dimensions,
         public ?string $materials,
         public ?string $countryOfOrigin,
         public ?string $warrantyInfo,
         public ?string $careInstructions,
-        public ?string $additionalInfo,
+        public ?ProductDetailAdditionalInfoData $additionalInfo,
     )
     {
     }
