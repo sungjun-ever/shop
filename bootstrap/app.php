@@ -8,9 +8,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
-        web: __DIR__.'/../routes/web.php',
-        api: __DIR__.'/../routes/api.php',
-        commands: __DIR__.'/../routes/console.php',
+        web: __DIR__ . '/../routes/web.php',
+        api: __DIR__ . '/../routes/api.php',
+        commands: __DIR__ . '/../routes/console.php',
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
@@ -19,18 +19,50 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
             if ($request->is('api/*')) {
-                return response()->json(['message' => 'Not Found'], 404);
+                return response()->json(
+                    [
+                        'success' => false,
+                        'error' => [
+                            'code' => 'RESOURCE_NOT_FOUND',
+                            'message' => '요청 리소스를 찾을 수 없습니다.',
+                            'details' => [],
+                        ]
+                    ], 404
+                );
             }
         });
 
-        $exceptions->render(function (InvalidArgumentException $e) {
-            return response()->json(['message' => 'Invalid Argument'], 400);
+        $exceptions->render(function (InvalidArgumentException $e, Request $request) {
+            if ($request->is('api/*')) {
+                return response()->json(
+                    [
+                        'success' => false,
+                        'error' => [
+                            'code' => 'INVALID_ARGUMENT',
+                            'message' => '잘못된 입력 데이터',
+                            'details' => [],
+                        ],
+
+                    ],
+                    400
+                );
+            }
+
         });
 
-        // 일반적인 예외에 대한 fallback 처리
         $exceptions->render(function (\Throwable $e, Request $request) {
             if ($request->is('api/*')) {
-                return response()->json(['message' => 'Internal Server Error'], 500);
+                return response()->json(
+                    [
+                        'success' => false,
+                        'error' => [
+                            'code' => 'INTERNAL_ERROR',
+                            'message' => '서버 내부 오류',
+                            'details' => [],
+                        ],
+                    ],
+                    500
+                );
             }
         });
     })->create();

@@ -33,8 +33,9 @@ class ProductController extends Controller
         $product = $this->queryBus->dispatch($query);
 
         return response()->json([
-            'status' => 'success',
-            'data' => $product
+            'success' => true,
+            'data' => $product,
+            'message' => '요청이 성공적으로 처리되었습니다.'
         ]);
     }
 
