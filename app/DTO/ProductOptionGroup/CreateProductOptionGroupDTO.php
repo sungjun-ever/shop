@@ -6,9 +6,9 @@ readonly class CreateProductOptionGroupDTO
 {
 
     public function __construct(
-        public int $productId,
+        public ?int $productId,
         public string $name,
-        public int $displayOrder,
+        public ?int $displayOrder = 0,
     )
     {
     }

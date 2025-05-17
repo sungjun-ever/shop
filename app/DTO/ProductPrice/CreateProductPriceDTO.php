@@ -6,12 +6,12 @@ readonly class CreateProductPriceDTO
 {
 
     public function __construct(
-        public int $productId,
+        public ?int $productId,
         public float $basePrice,
-        public float $salePrice,
-        public float $costPrice,
-        public string $currency,
-        public float $taxRate,
+        public ?float $salePrice,
+        public ?float $costPrice,
+        public ?string $currency = 'KRW',
+        public ?float $taxRate,
     )
     {
     }

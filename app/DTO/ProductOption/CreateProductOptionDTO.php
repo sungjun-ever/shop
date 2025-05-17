@@ -6,12 +6,12 @@ readonly class CreateProductOptionDTO
 {
 
     public function __construct(
-        public int $optionGroupId,
+        public ?int $optionGroupId,
         public string $name,
-        public float $additionalPrice,
-        public string $sku,
-        public int $stock,
-        public int $displayOrder,
+        public ?float $additionalPrice = 0,
+        public ?string $sku,
+        public ?int $stock = 0,
+        public ?int $displayOrder = 0,
     )
     {
     }
