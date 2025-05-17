@@ -2,7 +2,9 @@
 
 namespace App\Commands\ProductImage;
 
-class StoreProductImageCommand
+use App\Commands\CommandInterface;
+
+class StoreProductImageCommand implements CommandInterface
 {
 
 }

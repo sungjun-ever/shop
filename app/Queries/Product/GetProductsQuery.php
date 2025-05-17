@@ -2,7 +2,9 @@
 
 namespace App\Queries\Product;
 
-class GetProductsQuery
+use App\Queries\QueryInterface;
+
+class GetProductsQuery implements QueryInterface
 {
 
 }

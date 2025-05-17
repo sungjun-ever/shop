@@ -2,7 +2,9 @@
 
 namespace App\Queries\Review;
 
-class GetProductReviewCommand
+use App\Queries\QueryInterface;
+
+class GetProductReviewCommand implements QueryInterface
 {
 
 }

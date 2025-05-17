@@ -65,4 +65,4 @@ Route::prefix('v1')->group(function () {
     // 리뷰 삭제
     Route::delete('/reviews/{reviewId}', [ReviewController::class, 'destroy'])
         ->where('reviewId', '[0-9]+');
-})->middleware('auth:sanctum');
+})->withoutMiddleware('auth:sanctum');

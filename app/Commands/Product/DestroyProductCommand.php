@@ -2,7 +2,9 @@
 
 namespace App\Commands\Product;
 
-class destroyProductCommand
+use App\Commands\CommandInterface;
+
+class DestroyProductCommand implements CommandInterface
 {
 
 }

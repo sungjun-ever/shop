@@ -2,7 +2,9 @@
 
 namespace App\QueryHandlers\Product;
 
-class GetProductsQueryHandler
+use App\QueryHandlers\QueryHandlerInterface;
+
+class GetProductsQueryHandler implements QueryHandlerInterface
 {
 
 }

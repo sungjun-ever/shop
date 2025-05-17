@@ -2,9 +2,10 @@
 
 namespace App\Commands\Product;
 
+use App\Commands\CommandInterface;
 use App\Enum\ProductStatus;
 
-class CreateProductCommand
+class CreateProductCommand implements CommandInterface
 {
     public string $name;
     public string $slug;

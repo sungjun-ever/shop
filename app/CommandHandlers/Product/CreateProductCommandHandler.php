@@ -2,10 +2,11 @@
 
 namespace App\CommandHandlers\Product;
 
+use App\CommandHandlers\CommandHandlerInterface;
 use App\Commands\Product\CreateProductCommand;
 use App\Models\Product;
 
-class CreateProductCommandHandler
+class CreateProductCommandHandler implements CommandHandlerInterface
 {
     public function handler(CreateProductCommand $command)
     {

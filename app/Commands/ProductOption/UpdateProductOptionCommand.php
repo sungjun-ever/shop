@@ -2,7 +2,9 @@
 
 namespace App\Commands\ProductOption;
 
-class UpdateProductOptionCommand
+use App\Commands\CommandInterface;
+
+class UpdateProductOptionCommand implements CommandInterface
 {
 
 }

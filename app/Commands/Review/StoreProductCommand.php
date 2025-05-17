@@ -2,7 +2,9 @@
 
 namespace App\Commands\Review;
 
-class StoreProductCommand
+use App\Commands\CommandInterface;
+
+class StoreProductCommand implements CommandInterface
 {
 
 }

@@ -2,7 +2,9 @@
 
 namespace App\Commands\ProductOption;
 
-class DestroyProductOptionCommand
+use App\Commands\CommandInterface;
+
+class DestroyProductOptionCommand implements CommandInterface
 {
 
 }
