@@ -5,6 +5,7 @@ namespace App\QueryHandlers\Product;
 use App\Models\Product;
 use App\Queries\Product\GetProductsQuery;
 use App\QueryHandlers\QueryHandlerInterface;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class GetProductsQueryHandler implements QueryHandlerInterface
@@ -23,21 +24,21 @@ class GetProductsQueryHandler implements QueryHandlerInterface
             ->paginate(perPage: $query->perPage, page: $query->page);
     }
 
-    private function filterBySeller($query, int $sellerId)
+    private function filterBySeller($query, int $sellerId): Builder
     {
         return $query->with(['seller' => function ($q) use ($sellerId) {
             $q->select('id', 'name')->where('id', $sellerId);
         }]);
     }
 
-    private function filterByBrand($query, int $brandId)
+    private function filterByBrand($query, int $brandId): Builder
     {
         return $query->with(['brand' => function ($q) use ($brandId) {
             $q->select('id', 'name')->where('id', $brandId);
         }]);
     }
 
-    private function filterByCategory($query, array $categoryId)
+    private function filterByCategory($query, array $categoryId): Builder
     {
         return $query->with(['productCategory' => function ($q) use ($categoryId) {
             $q->select('id', 'product_id', 'category_id')
@@ -45,7 +46,7 @@ class GetProductsQueryHandler implements QueryHandlerInterface
         }]);
     }
 
-    private function filterByStock($query, bool $inStock)
+    private function filterByStock($query, bool $inStock): Builder
     {
         return $query->with(['productOption' => function ($q) use ($inStock) {
             $q->select('id', 'stock')
@@ -58,7 +59,7 @@ class GetProductsQueryHandler implements QueryHandlerInterface
         return !is_null($query->minPrice) || !is_null($query->maxPrice);
     }
 
-    private function filterByPrice($query, GetProductsQuery $queryObj)
+    private function filterByPrice($query, GetProductsQuery $queryObj): Builder
     {
         return $query->with(['productPrice' => function ($q) use ($queryObj) {
             $q->select('id', 'base_price');
@@ -74,7 +75,7 @@ class GetProductsQueryHandler implements QueryHandlerInterface
         }]);
     }
 
-    private function filterBySearch($query, string $search)
+    private function filterBySearch($query, string $search): Builder
     {
         return $query->whereAny([
             'name',
@@ -85,8 +86,6 @@ class GetProductsQueryHandler implements QueryHandlerInterface
 
     private function applySorting($query, ?string $sort): void
     {
-        if (empty($sort)) return;
-
         collect(explode(',', $sort))
             ->map(fn($item) => explode(':', $item))
             ->each(fn($parts) => $query->orderBy($parts[0], $parts[1] ?? 'asc'));
