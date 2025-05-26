@@ -40,7 +40,7 @@ class GetProductsQueryHandler implements QueryHandlerInterface
 
     private function filterByCategory($query, array $categoryId): Builder
     {
-        return $query->with(['productCategory' => function ($q) use ($categoryId) {
+        return $query->with(['productCategories' => function ($q) use ($categoryId) {
             $q->select('id', 'product_id', 'category_id')
                 ->whereIn('category_id', $categoryId);
         }]);

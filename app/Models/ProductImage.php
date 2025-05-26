@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ProductImage extends Model
 {
@@ -15,4 +16,14 @@ class ProductImage extends Model
         'display_order',
         'option_id',
     ];
+
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
+
+    public function option(): BelongsTo
+    {
+        return $this->belongsTo(ProductOption::class, 'option_id', 'id');
+    }
 }

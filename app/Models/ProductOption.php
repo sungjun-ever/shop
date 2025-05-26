@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ProductOption extends Model
 {
@@ -16,4 +18,14 @@ class ProductOption extends Model
         'stock',
         'display_order',
     ];
+
+    public function optionGroup(): BelongsTo
+    {
+        return $this->belongsTo(ProductOptionGroup::class, 'option_group_id', 'id');
+    }
+
+    public function productImages(): HasMany
+    {
+        return $this->hasMany(ProductImage::class, 'option_id', 'id');
+    }
 }

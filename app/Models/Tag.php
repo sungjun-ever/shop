@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tag extends Model
 {
@@ -12,4 +13,9 @@ class Tag extends Model
         'name',
         'slug',
     ];
+
+    public function productTags(): HasMany
+    {
+        return $this->hasMany(ProductTag::class, 'tag_id', 'id');
+    }
 }

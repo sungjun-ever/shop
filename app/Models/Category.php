@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
@@ -16,4 +17,14 @@ class Category extends Model
         'level',
         'image_url',
     ];
+
+    public function productCategories(): HasMany
+    {
+        return $this->hasMany(ProductCategory::class, 'category_id', 'id');
+    }
+
+    public function subCategories(): HasMany
+    {
+        return $this->hasMany(Category::class, 'parent_id', 'id');
+    }
 }
