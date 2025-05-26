@@ -29,12 +29,12 @@ class ProductController extends Controller
     public function store(StoreProductRequest $request): JsonResponse
     {
         $command = $request->toCreateProductCommand();
-        $productId = $this->commandBus->dispatch($command);
+        $product = $this->commandBus->dispatch($command);
 
         return response()->json([
             'success' => true,
-            'data' => $productId,
-            'message' => '제품이 등록됐습니다.'
+            'data' => $product,
+            'message' => '상품이 성공적으로 등록되었습니다.'
         ]);
 
     }
