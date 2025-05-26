@@ -50,7 +50,7 @@ class GetProductsQueryHandler implements QueryHandlerInterface
     {
         return $query->with([
             'productOptionGroups' => function ($q) use ($inStock) {
-                $q->select('id', 'product_id', 'option_group_id')
+                $q->select('id', 'product_id')
                     ->with([
                         'productOptions' => function ($subQ) use ($inStock) {
                             $subQ->select('id', 'option_group_id', 'stock')
