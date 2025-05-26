@@ -48,10 +48,17 @@ class GetProductsQueryHandler implements QueryHandlerInterface
 
     private function filterByStock($query, bool $inStock): Builder
     {
-        return $query->with(['productOption' => function ($q) use ($inStock) {
-            $q->select('id', 'stock')
-                ->where('stock', $inStock ? '>' : '=', 0);
-        }]);
+        return $query->with([
+            'productOptionGroups' => function ($q) use ($inStock) {
+                $q->select('id', 'product_id', 'option_group_id')
+                    ->with([
+                        'productOptions' => function ($subQ) use ($inStock) {
+                            $subQ->select('id', 'option_group_id', 'stock')
+                                ->where('stock', $inStock ? '>' : '=', 0);
+                        }
+                    ]);
+            }
+        ]);
     }
 
     private function hasPriceFilter(GetProductsQuery $query): bool
