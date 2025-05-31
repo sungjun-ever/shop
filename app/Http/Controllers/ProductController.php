@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Bus\CommandBus;
 use App\Bus\QueryBus;
-use App\Commands\Product\CreateProductCommand;
-use App\DTO\Product\CreateProductDTO;
 use App\Http\Requests\Product\StoreProductRequest;
+use App\Http\Resources\Product\ProductCollectionResource;
 use App\Queries\Product\GetProductByIdQuery;
+use App\Queries\Product\GetProductsQuery;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -21,9 +21,28 @@ class ProductController extends Controller
     {
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $query = new GetProductsQuery(
+            page: $request->query('page', 1),
+            perPage: $request->query('perPage', 10),
+            sort: $request->query('sort', 'created_at:desc'),
+            status: $request->query('status'),
+            minPrice: $request->query('minPrice'),
+            maxPrice: $request->query('maxPrice'),
+            categoryId: $request->query('category', []),
+            sellerId: $request->query('seller'),
+            brandId: $request->query('brand'),
+            inStock: $request->query('inStock'),
+            search: $request->query('search'),
+        );
 
+        $products = $this->queryBus->dispatch($query);
+        return response()->json([
+            'success' => true,
+            'data' => new ProductCollectionResource($products),
+            "message" => "상품 목록을 성공적으로 조회했습니다."
+        ]);
     }
 
     public function store(StoreProductRequest $request): JsonResponse

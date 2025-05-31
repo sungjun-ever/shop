@@ -61,6 +61,13 @@ class Product extends Model
         return $this->hasMany(Review::class, 'product_id', 'id');
     }
 
+    public function productReviewsAvgRating(): HasOne
+    {
+        return $this->hasOne(Review::class)
+            ->selectRaw('product_id, avg(rating) as rating')
+            ->groupBy('product_id');
+    }
+
     public function productPrice(): HasOne
     {
         return $this->hasOne(ProductPrice::class, 'product_id', 'id');
