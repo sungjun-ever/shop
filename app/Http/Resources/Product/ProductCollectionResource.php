@@ -15,6 +15,7 @@ class ProductCollectionResource extends ResourceCollection
     public function toArray(Request $request): array
     {
         $stock = 0;
+
         return [
             'item' => $this->collection->map(function ($item) use (&$stock) {
                 $item->productOptionGroups->pluck('productOptions')->map(function ($item) use (&$stock) {
@@ -50,6 +51,12 @@ class ProductCollectionResource extends ResourceCollection
                     'created_at' => $item->created_at
                 ];
             }),
+            'pagination' => [
+                "total_items" => $this->resource->total(),
+                "total_pages" => $this->resource->lastPage(),
+                "current_page" => $this->resource->currentPage(),
+                "per_page" => $this->resource->perPage(),
+            ],
         ];
     }
 }
