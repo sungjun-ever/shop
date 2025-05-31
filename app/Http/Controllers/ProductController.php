@@ -6,6 +6,7 @@ use App\Bus\CommandBus;
 use App\Bus\QueryBus;
 use App\Http\Requests\Product\StoreProductRequest;
 use App\Http\Resources\Product\ProductCollectionResource;
+use App\Http\Resources\Product\ProductResource;
 use App\Queries\Product\GetProductByIdQuery;
 use App\Queries\Product\GetProductsQuery;
 use Illuminate\Http\JsonResponse;
@@ -65,7 +66,7 @@ class ProductController extends Controller
 
         return response()->json([
             'success' => true,
-            'data' => $product,
+            'data' => new ProductResource($product),
             'message' => '요청이 성공적으로 처리되었습니다.'
         ]);
     }

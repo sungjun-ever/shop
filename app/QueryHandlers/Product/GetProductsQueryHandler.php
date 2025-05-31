@@ -18,7 +18,7 @@ class GetProductsQueryHandler implements QueryHandlerInterface
                 'seller',
                 'productImages' => function ($q) use ($query) {
                     $q->select('id', 'product_id', 'url', 'alt_text')
-                        ->orderBy('display_order', 'asc');
+                        ->where('is_primary', true);
                 },
                 'productReviews' => function ($q) {
                     $q->selectRaw('MIN(id) as id, product_id, AVG(rating) as rating, COUNT(id) as review_count')

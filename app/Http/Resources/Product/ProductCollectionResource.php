@@ -30,12 +30,10 @@ class ProductCollectionResource extends ResourceCollection
                     'base_price' => $item->productPrice->base_price,
                     'sale_price' => $item->productprice->sale_price,
                     'currency' => $item->productPrice->currency,
-                    'primary_image' => $item->productImages->map(function ($item) {
-                        return [
-                            'url' => $item->url,
-                            'alt_text' => $item->alt_text,
-                        ];
-                    }),
+                    'primary_images' => [
+                        'url' => $item->productImages->first()->url,
+                        'alt_text' => $item->productImages->first()->alt_text,
+                    ],
                     'brand' => [
                         'id' => $item->brand->id,
                         'name' => $item->brand->name,

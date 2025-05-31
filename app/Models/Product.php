@@ -6,6 +6,7 @@ use App\Enum\ProductStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Product extends Model
@@ -61,11 +62,18 @@ class Product extends Model
         return $this->hasMany(Review::class, 'product_id', 'id');
     }
 
-    public function productReviewsAvgRating(): HasOne
+    public function reviewStats(): HasOne
     {
         return $this->hasOne(Review::class)
-            ->selectRaw('product_id, avg(rating) as rating')
+            ->selectRaw('product_id, AVG(rating) as avg_rating, COUNT(rating) as review_count')
             ->groupBy('product_id');
+    }
+
+    public function reviewRatingDistribution(): HasMany
+    {
+        return $this->hasMany(Review::class)
+            ->selectRaw('product_id, rating, COUNT(rating) as count')
+            ->groupBy('product_id', 'rating');
     }
 
     public function productPrice(): HasOne
